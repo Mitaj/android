@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="top_second_field">150dp</dimen>
+    <dimen name="top_first_field">100dp</dimen>
+    <dimen name="top_edit_address">-50dp</dimen>
+</resources>
