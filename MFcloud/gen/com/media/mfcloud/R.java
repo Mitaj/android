@@ -15,19 +15,19 @@ public final class R {
     }
     public static final class dimen {
         public static final int top_edit_address=0x7f040002;
+        public static final int top_edit_login=0x7f040001;
+        public static final int top_edit_password=0x7f040000;
         public static final int top_edit_port=0x7f040003;
-        public static final int top_first_field=0x7f040001;
-        public static final int top_second_field=0x7f040000;
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int button_connect=0x7f080004;
+        public static final int button_connect=0x7f080003;
         public static final int button_login=0x7f080000;
-        public static final int editLogin=0x7f080002;
-        public static final int editPassword=0x7f080001;
-        public static final int editServerAddress=0x7f080003;
+        public static final int editLogin=0x7f080001;
+        public static final int editPassword=0x7f080002;
+        public static final int editServerAddress=0x7f080004;
         public static final int editServerPort=0x7f080005;
     }
     public static final class layout {
