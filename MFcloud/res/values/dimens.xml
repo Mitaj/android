@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="top_second_field">150dp</dimen>
-    <dimen name="top_first_field">100dp</dimen>
-    <dimen name="top_edit_address">-50dp</dimen>
+    <dimen name="top_edit_password">-70dp</dimen>
+    <dimen name="top_edit_login">-120dp</dimen>
+    <dimen name="top_edit_address">-100dp</dimen>
+    <dimen name="top_edit_port">-50dp</dimen>
 </resources>

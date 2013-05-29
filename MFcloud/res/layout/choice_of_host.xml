@@ -5,8 +5,16 @@
     android:layout_height="match_parent"
     tools:context=".Connect" >
 
+    <Button
+        android:id="@+id/button_connect"
+        android:layout_width="117dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="buttonConnect_onClick"
+        android:text="@string/connect_button" />
+    
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/editServerAddress"
         android:layout_width="265dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -18,17 +26,16 @@
         <requestFocus />
     </EditText>
 
-    <Button
-        android:id="@+id/button_connect"
-        android:layout_width="117dp"
+    
+
+    <EditText
+        android:id="@+id/editServerPort"
+        android:layout_width="142dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/connect_button" />
-
-    <ProgressBar
-        android:id="@+id/progressBar1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        android:layout_marginTop="@dimen/top_edit_port"
+        android:ems="10"
+        android:hint="@string/edit_server_port"
+        android:inputType="number" />
 
 </FrameLayout>
