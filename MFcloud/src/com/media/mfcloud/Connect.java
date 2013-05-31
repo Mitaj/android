@@ -1,16 +1,5 @@
 package com.media.mfcloud;
 
-
-
-
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,7 +13,9 @@ public class Connect extends Activity {
 	
 	private EditText cServerAddress;
 	private EditText cServerPort;
-	
+	protected ClientWork main_client= null;
+	private String address_server = null;
+	private Integer port_server = null;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,48 +29,37 @@ public class Connect extends Activity {
     	cServerPort = (EditText)findViewById(R.id.editServerPort);
     }
     
-    public boolean validateIPAddress( String ipAddress ) {
-		String[] tokens = ipAddress.split("\\.");
-		if (tokens.length != 4) {
-			return false;
-		}
-		for (String str : tokens) {
-			int i = Integer.parseInt(str);
-			if ((i < 0) || (i > 255)) {
-				return false;
-			}
-		}
-		return true;
-	}
-    
     private Boolean check_host() {	
-    
-    	String address_server = cServerAddress.getText().toString();
-    	Integer port_server = Integer.parseInt(cServerPort.getText().toString());
-    	Toast.makeText(getApplicationContext(), address_server, Toast.LENGTH_SHORT).show();
+    	address_server = null;
+    	port_server = null;
     	
-    	InetAddress ipAddress = null;
-    	try{
-    	ipAddress = InetAddress.getByName(address_server);
-	    } catch (IOException e) {
-	    	return false;
-		}
-	
-    	Socket test_socket = new Socket();
-    	SocketAddress sa_test = new InetSocketAddress(ipAddress, port_server);
+    	address_server = cServerAddress.getText().toString();
+    	if(cServerPort.getText().toString().equals("")){
+    		port_server = 0;
+    	}else{ 
+    		port_server = Integer.parseInt(cServerPort.getText().toString());
+    	}
+    	Toast.makeText(getApplicationContext(),address_server+":"+port_server, Toast.LENGTH_SHORT).show();
+    
+    	
     	try {
-			test_socket.connect(sa_test, 1000);
-		} catch (IOException e) {
+			main_client = new ClientWork(address_server,port_server);
+		} catch (Exception e) {
 			Toast.makeText(getApplicationContext(), "This address is not correct", Toast.LENGTH_SHORT).show();
 			return false;
 		}
-    		 
-    	if(test_socket.isConnected()||test_socket!=null ||!test_socket.isClosed()){
-    		
+    	
+    	if(main_client.isAlreadyConnected()||main_client!=null){
+    		try{
+    			main_client.close_connect();
+	    	} catch (Exception e) {
+				Toast.makeText(getApplicationContext(), "This address is not correct", Toast.LENGTH_SHORT).show();
+				return false;
+			}
     		return true;
     	}else{
     		
-    		Toast.makeText(getApplicationContext(), "this not address", Toast.LENGTH_SHORT).show();
+    		Toast.makeText(getApplicationContext(), "This address is not correct", Toast.LENGTH_SHORT).show();
     		return false;
     	}		
     }
@@ -88,11 +68,13 @@ public class Connect extends Activity {
 		
 		Boolean	a = null;
 		a = check_host();
-				
+		
 		if(a){
 			Intent intent = new Intent(Connect.this, Authorization.class);
+			intent.putExtra("address_server", address_server);
+			intent.putExtra("port_server", port_server);
 	        startActivity(intent);
  		}
-}
+	}
 
 }
