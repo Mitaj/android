@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class Authorization extends Activity {
 	
@@ -38,19 +39,45 @@ public class Authorization extends Activity {
     private Boolean check_login(){
     		String login = cLoginName.getText().toString();
     		String password = cLoginPassword.getText().toString();
-    		
+    	
     		
     		try {
 				main_client = new ClientWork(server_address, server_port);
 			} catch (Exception e) {
 				return false;
 			}
+    		String toencrypt = login+":"+password;
+    		Toast.makeText(getApplicationContext(), toencrypt, Toast.LENGTH_SHORT).show();
     		
+    		 String login_encrypted;
     		try {
-				main_client.SendString(login+" "+password);
+    			
+				login_encrypted =Aes.encrypt_string(toencrypt);
+			} catch (Exception e1) {
+				return false;			
+			}
+    		Toast.makeText(getApplicationContext(), "encrypt correct: "+login_encrypted, Toast.LENGTH_SHORT).show();
+    		try {
+				main_client.SendString(login_encrypted);
+			}catch (Exception e) {
+				return false;
+			}
+    		
+    		String decrypt;
+    		try {
+				decrypt = Aes.decrypt_string(login_encrypted);
+			} catch (Exception e1) {
+				return false;
+			}
+    		
+    		Toast.makeText(getApplicationContext(), "decrypt correct: "+login_encrypted, Toast.LENGTH_SHORT).show();
+    		try {
+    			
+				main_client.SendString(decrypt);
 			} catch (Exception e) {
 				return false;
 			}
+    		
     		
     		
     	return false;
