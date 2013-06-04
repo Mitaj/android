@@ -11,11 +11,27 @@
             backward-compatibility can go here.
         -->
     </style>
-
+	
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+    <style name="MyCustomProgressStyle">
+		<item name="android:indeterminateOnly">false</item>
+		<item name="android:progressDrawable">@drawable/seekbarcolors</item>
+		<item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
+		<item name="android:minHeight">10dp</item>
+		<item name="android:maxHeight">10dp</item>
+		<item name="android:thumbOffset">0dp</item>
+		<item name="android:thumb">@drawable/thumb</item>
+	</style>
+	
     <color name="hint_txt_login">#C6B1A9</color>
-
+    <color name="white">#FFFFFF</color>
+	<color name="media_controller_text_color">#FFFFFF</color>
+	<color name="media_controller_bg_color">#5f5f5f</color>
+	<color name="seekbar_bg">#141414</color>
+	<color name="seekbar_progress">#a53130</color>
+	<color name="seekbar_sec_progress">#875e5e</color>
 </resources>

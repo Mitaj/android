@@ -51,7 +51,7 @@ public class Connect extends Activity {
     	
     	if(main_client.isAlreadyConnected()||main_client!=null){
     		try{
-    			main_client.close_connect();
+    			//main_client.close_connect();
 	    	} catch (Exception e) {
 				Toast.makeText(getApplicationContext(), "This address is not correct", Toast.LENGTH_SHORT).show();
 				return false;
@@ -73,6 +73,7 @@ public class Connect extends Activity {
 			Intent intent = new Intent(Connect.this, Authorization.class);
 			intent.putExtra("address_server", address_server);
 			intent.putExtra("port_server", port_server);
+			
 	        startActivity(intent);
  		}
 	}

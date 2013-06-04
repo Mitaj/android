@@ -41,7 +41,8 @@ public class Aes{
 	
 	 
 	String res =toencrypt;
-	for(int i =0; i<16-toencrypt.length()%16;i++)
+	Integer r = toencrypt.getBytes().length;
+	for(int i =0; i<16-r%16;i++)
 	{
 		res+='\0';
 	}

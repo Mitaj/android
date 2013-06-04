@@ -1,8 +1,11 @@
 package com.media.mfcloud;
 
+import com.media.mfcloud.exceptions.SocketException;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -32,6 +35,7 @@ public class Authorization extends Activity {
     	if(server_port ==0){
     		Intent intent = new Intent(Authorization.this, Connect.class);
     		startActivity(intent);
+    		
     	}
     	
     }
@@ -39,16 +43,46 @@ public class Authorization extends Activity {
     private Boolean check_login(){
     		String login = cLoginName.getText().toString();
     		String password = cLoginPassword.getText().toString();
-    	
+    		
     		
     		try {
 				main_client = new ClientWork(server_address, server_port);
 			} catch (Exception e) {
+				Toast.makeText(getApplicationContext(), "error connect", Toast.LENGTH_SHORT).show();
 				return false;
 			}
+    		try {
+				main_client.Send_to_Dir("F:/");
+				String files = main_client.getDir();
+				Toast.makeText(getApplicationContext(), files, Toast.LENGTH_SHORT).show();
+			} catch (Exception e) {
+				Log.i("Auth",e.getMessage());
+				Toast.makeText(getApplicationContext(), "error send dir", Toast.LENGTH_SHORT).show();
+				return false;
+			}
+    		
+    		/*
+    		try {
+				main_client.Send_Auth(login, password);
+			} catch (Exception e) {
+				Toast.makeText(getApplicationContext(), "error authorization", Toast.LENGTH_SHORT).show();
+				return false;
+			}
+    		try {
+				if(main_client.GetAuth()) return true;
+			} catch (Exception e) {
+				Log.i("Auth","error authorization");
+			}*/
+    		/*
     		String toencrypt = login+":"+password;
     		Toast.makeText(getApplicationContext(), toencrypt, Toast.LENGTH_SHORT).show();
     		
+    		try {
+    			
+				main_client.SendString(toencrypt);
+			} catch (Exception e) {
+				return false;
+			}
     		 String login_encrypted;
     		try {
     			
@@ -70,7 +104,7 @@ public class Authorization extends Activity {
 				return false;
 			}
     		
-    		Toast.makeText(getApplicationContext(), "decrypt correct: "+login_encrypted, Toast.LENGTH_SHORT).show();
+    		Toast.makeText(getApplicationContext(), "decrypt correct: "+decrypt, Toast.LENGTH_SHORT).show();
     		try {
     			
 				main_client.SendString(decrypt);
@@ -78,7 +112,7 @@ public class Authorization extends Activity {
 				return false;
 			}
     		
-    		
+    		*/
     		
     	return false;
     }
@@ -88,6 +122,9 @@ public class Authorization extends Activity {
 		a = check_login();
     	if(a){
     		Intent intent = new Intent(this, MainActivity.class);
+    		intent.putExtra("address_server", server_address);
+			intent.putExtra("port_server", server_port);
+			intent.putExtra("session_id", main_client.getSession());
 	        startActivity(intent);
     	}
     }
