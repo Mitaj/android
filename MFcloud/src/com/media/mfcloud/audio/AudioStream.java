@@ -5,12 +5,14 @@ package com.media.mfcloud.audio;
 import com.media.mfcloud.R;
 
 import android.app.Activity;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnBufferingUpdateListener;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager.OnActivityDestroyListener;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -58,6 +60,7 @@ public class AudioStream extends Activity implements  OnClickListener, OnTouchLi
 		mediaPlayer = new MediaPlayer();
 		mediaPlayer.setOnBufferingUpdateListener(this);
 		mediaPlayer.setOnCompletionListener(this);
+		//mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 	}
 
 	
@@ -86,6 +89,7 @@ public class AudioStream extends Activity implements  OnClickListener, OnTouchLi
 				
 			} catch (Exception e) {
 				e.printStackTrace();
+				Log.i("Audio",e.getMessage());
 			}
 			
 			mediaFileLengthInMilliseconds = mediaPlayer.getDuration(); // gets the song length in milliseconds from URL
@@ -106,11 +110,11 @@ public class AudioStream extends Activity implements  OnClickListener, OnTouchLi
 	public boolean onTouch(View v, MotionEvent event) {
 		if(v.getId() == R.id.SeekBarTestPlay){
 			
-			if(mediaPlayer.isPlaying()){
+			/*if(mediaPlayer.isPlaying()){
 		    	SeekBar sb = (SeekBar)v;
 				int playPositionInMillisecconds = (mediaFileLengthInMilliseconds / 100) * sb.getProgress();
 				mediaPlayer.seekTo(playPositionInMillisecconds);
-			}
+			}*/
 		}
 		return false;
 	}

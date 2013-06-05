@@ -27,6 +27,8 @@ public class Connect extends Activity {
     	
     	cServerAddress = (EditText)findViewById(R.id.editServerAddress);
     	cServerPort = (EditText)findViewById(R.id.editServerPort);
+    	cServerAddress.setText("artzilla.name");
+    	cServerPort.setText("33777");
     }
     
     private Boolean check_host() {	

@@ -52,14 +52,17 @@ public class Authorization extends Activity {
 				return false;
 			}
     		try {
-				main_client.Send_to_Dir("F:/");
-				String files = main_client.getDir();
-				Toast.makeText(getApplicationContext(), files, Toast.LENGTH_SHORT).show();
+    			if(main_client.Send_Auth(login, password)) return true;
+    			
+				//main_client.Send_to_Dir("F:/");
+				//String files = main_client.getDir();
+				//Toast.makeText(getApplicationContext(), files, Toast.LENGTH_SHORT).show();
 			} catch (Exception e) {
 				Log.i("Auth",e.getMessage());
-				Toast.makeText(getApplicationContext(), "error send dir", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), "error send auth", Toast.LENGTH_SHORT).show();
 				return false;
 			}
+    		
     		
     		/*
     		try {
@@ -121,7 +124,7 @@ public class Authorization extends Activity {
 		Boolean a;
 		a = check_login();
     	if(a){
-    		Intent intent = new Intent(this, MainActivity.class);
+    		Intent intent = new Intent(Authorization.this, MainActivity.class);
     		intent.putExtra("address_server", server_address);
 			intent.putExtra("port_server", server_port);
 			intent.putExtra("session_id", main_client.getSession());
